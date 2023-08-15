@@ -20,6 +20,7 @@ RUN set -eu \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(grep ^VERSION_CODENAME /etc/os-release | cut -d '=' -f 2) stable" > /etc/apt/sources.list.d/docker.list \
     && apt-get update \
     && apt-get install -y --no-install-suggests --no-install-recommends \
+        ca-certificates \
         docker-ce-cli \
         tini \
     # rocketarb
@@ -30,5 +31,6 @@ RUN set -eu \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /work
+ENV PATH="${PATH}:/app"
 
 ENTRYPOINT ["/usr/bin/tini", "--", "/app/rocketarb.js"]

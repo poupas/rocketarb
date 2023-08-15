@@ -42,5 +42,6 @@ docker run --rm -ti \
 	--cap-drop ALL \
 	-v /var/run/docker.sock:/var/run/docker.sock \
 	-v $(pwd):/work \
+	--workdir /work \
 	--net ${DOCKER_NETWORK} \
 	rocketarb "$@"
